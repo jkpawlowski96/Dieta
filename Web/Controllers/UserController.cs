@@ -16,14 +16,13 @@ namespace Web.Controllers
     {
         public IActionResult Index()
         {
-            
-
+            TempData["Username"] = HttpContext.Session.GetString("Username");
+            TempData["Kcal"] = HttpContext.Session.GetInt32("Kcal").ToString();
             return View();
         }
         [HttpGet]
         public IActionResult Login()
         {
-
             return View();
         }
         [HttpPost]
@@ -38,6 +37,8 @@ namespace Web.Controllers
             {
                 HttpContext.Session.SetString("Username", user.Username);
                 HttpContext.Session.SetString("Password", user.Password);
+                HttpContext.Session.SetInt32("Id", user.Id);
+                HttpContext.Session.SetInt32("Kcal", user.Kcal);
                 HttpContext.Session.SetInt32("signed", 1);
 
                 return RedirectToAction("Index");
@@ -51,9 +52,25 @@ namespace Web.Controllers
         {
 
             HttpContext.Session.Clear(); 
-            return RedirectToAction("Login","Home");
+            return RedirectToAction("Index","Home");
 
         }
-
+        [HttpGet]
+        public IActionResult EditUser()
+        {
+            TempData["Username"] = HttpContext.Session.GetString("Username");
+            TempData["Password"] = HttpContext.Session.GetString("Password");
+            TempData["Kcal"] = HttpContext.Session.GetInt32("Kcal").ToString();
+            return View();
+        }
+        [HttpPost]
+        public IActionResult EditUser(UserModel user)
+        {
+            HttpContext.Session.SetString("Username", user.Username);
+            HttpContext.Session.SetString("Password", user.Password);
+            HttpContext.Session.SetInt32("Kcal", user.Kcal);
+            
+            return RedirectToAction("Index", "User");
+        }
     }
 }

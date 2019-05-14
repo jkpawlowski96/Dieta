@@ -3,5 +3,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+
+<h1>Hello @TempData["Username"]</h1>
+<h3>You shuld eat @TempData["Kcal"] per day</h3>
+
+
+<div>
+    <button class="btn-default" onclick="location.href='@Url.Action("EditUser", "User")';return false;">Edit profile</button>
+</div>
 
