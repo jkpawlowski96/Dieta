@@ -72,5 +72,16 @@ namespace Web.Controllers
             
             return RedirectToAction("Index", "User");
         }
+        public IActionResult History(List<History> history)
+        {
+            var user = new UserModel()
+            {
+                Username = HttpContext.Session.GetString("Username"),
+                Password = HttpContext.Session.GetString("Password")
+            };
+            var service = new Services.HistoryService(user);
+            history = service.UserHistory();
+            return View(history);
+        }
     }
 }
