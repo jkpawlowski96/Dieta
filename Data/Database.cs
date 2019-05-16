@@ -53,13 +53,14 @@ namespace Data
                    
                 }
                 read.Close();
-
+                connect.Close();
                 return result;
             }
             catch (Exception ex)
             {
                 var ret = new List<string>();
                 ret.Add(ex.ToString());
+                connect.Close();
                 return ret ;
             }
         }

@@ -14,6 +14,10 @@ namespace Web.Controllers
 {
     public class UserController : Controller
     {
+        public void MessageBox(string message)
+        {
+            Response.WriteAsync("<script>alert('"+ message + "');</script>");
+        }
         public IActionResult Index()
         {
             TempData["Username"] = HttpContext.Session.GetString("Username");
@@ -83,5 +87,25 @@ namespace Web.Controllers
             history = service.UserHistory();
             return View(history);
         }
+        [HttpGet]
+        public IActionResult Register(string result="Fill data")
+        {
+            TempData["command"] = result;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Register(UserModel user)
+        {
+            var service = new Services.RegisterService(user);
+            var result = service.Register();
+
+            //MessageBox(result);
+            if (result == "succes")
+                return RedirectToAction("Login", "User");
+            else
+                return Register(result);
+
+        }
+
     }
 }

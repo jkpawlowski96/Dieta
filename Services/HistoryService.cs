@@ -6,15 +6,11 @@ using System.Text;
 
 namespace Services
 {
-    public class HistoryService
+    public class HistoryService: Service
     {
-        Database db;
-        public UserModel User { get; set; }
-
-        public HistoryService(Models.UserModel _user)
+        public HistoryService(UserModel _user) :base (_user)
         {
-            db = new Database();
-            User = _user;
+
         }
         public List<Models.History> UserHistory()
         {
