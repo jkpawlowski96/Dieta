@@ -15,7 +15,9 @@ namespace Web.Controllers
 {
     public class UserController : Controller
     {
-        static List<Models.FitModel> fit_list;
+        static List<Models.FitModel>[] fitTemps = new List<Models.FitModel>[999999] ;
+            
+            
         int IntFromBool(bool arg)
         {
             if (arg)
@@ -171,7 +173,7 @@ namespace Web.Controllers
             fit = service.Fit(user);
             var opitimizer = new Optimizer() { UserKcal=user.Kcal};
             fit = opitimizer.Fit(fit);
-            fit_list = fit;
+            fitTemps[user.Id] = fit;
 
             TempData["SumProducts"] = fit.Count;
             
@@ -193,7 +195,8 @@ namespace Web.Controllers
 
             var user = UserFromSession();
 
-            var fit = fit_list;
+            var fit = fitTemps[user.Id];
+            fitTemps[user.Id] = null;
             var service = new Services.HistoryService(user);
             if (service.Add(fit))
                 return RedirectToAction("Index");
