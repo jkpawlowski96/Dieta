@@ -26,9 +26,9 @@ namespace Services
 
                 args.Add(User.Password);
                 args.Add(User.Kcal.ToString());
-                args.Add(User.Lactose.ToString());
-                args.Add(User.Gluten.ToString());
-                args.Add(User.Vege.ToString());
+                //args.Add(User.Lactose.ToString());
+                //args.Add(User.Gluten.ToString());
+                //args.Add(User.Vege.ToString());
                 answer = db.Procedure("User_Register", args);
 
 

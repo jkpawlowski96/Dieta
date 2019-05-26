@@ -38,7 +38,7 @@ namespace Services
             return history;
         }
 
-        public bool Add(List<Models.FitModel> fit, UserModel user)
+        public bool Add(List<Models.FitModel> fit)
         {
             try
             {

@@ -195,7 +195,7 @@ namespace Web.Controllers
 
             var fit = fit_list;
             var service = new Services.HistoryService(user);
-            if (service.Add(fit, user))
+            if (service.Add(fit))
                 return RedirectToAction("Index");
             else
                 return Fit();
