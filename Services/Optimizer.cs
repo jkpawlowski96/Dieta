@@ -17,7 +17,7 @@ namespace Services
             Random rnd = new Random();
             int Length = all.Count;
             int TempWeight;
-            float TempPrice;
+            double TempPrice;
             int TempKcal;
             int sumkcal = 0;
             int NumOfIngredients = 0;
@@ -25,11 +25,12 @@ namespace Services
             {
 
                 result.Add(all[rnd.Next(Length)]); //wylosowanie jednego elementu nie działa
-                TempWeight = rnd.Next(2, 8); //Losowanie Wagi co 100 gram
+                TempWeight = rnd.Next(1, 5); //Losowanie Wagi co 100 gram
                 TempPrice = TempWeight * result[NumOfIngredients].Price;
+                TempPrice = Math.Round(value: TempPrice, digits: 2);
                 TempKcal = TempWeight * result[NumOfIngredients].Kcal;
                 sumkcal += TempKcal;
-                result[NumOfIngredients].Price = TempPrice;
+                result[NumOfIngredients].Price = float.Parse(TempPrice.ToString());
                 result[NumOfIngredients].Kcal = TempKcal;
                 result[NumOfIngredients].Weight = TempWeight * 100;
 
