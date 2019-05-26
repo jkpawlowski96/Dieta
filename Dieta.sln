@@ -8,11 +8,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{E
 		{79818E05-407D-40E2-A4A8-2ED64BCB7AF2} = {79818E05-407D-40E2-A4A8-2ED64BCB7AF2}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{79818E05-407D-40E2-A4A8-2ED64BCB7AF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{79818E05-407D-40E2-A4A8-2ED64BCB7AF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{810EE089-EDBC-4C6B-B267-FE302C1A1024}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{810EE089-EDBC-4C6B-B267-FE302C1A1024}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{35EB644C-4A14-4D96-807A-65C4B69AED30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{35EB644C-4A14-4D96-807A-65C4B69AED30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

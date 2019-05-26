@@ -169,8 +169,8 @@ namespace Web.Controllers
 
             var service = new Services.FitService(user);
             fit = service.Fit(user);
-            var opitimizer = new Optimizer();
-            fit = opitimizer.Rand5(fit);
+            var opitimizer = new Optimizer() { UserKcal=user.Kcal};
+            fit = opitimizer.Fit(fit);
             fit_list = fit;
 
             TempData["SumProducts"] = fit.Count;
