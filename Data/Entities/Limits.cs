@@ -9,6 +9,5 @@ namespace Data.Entities
         public int? IngredientId { get; set; }
         public int? Daily { get; set; }
 
-        public virtual Ingredients Ingredient { get; set; }
     }
 }

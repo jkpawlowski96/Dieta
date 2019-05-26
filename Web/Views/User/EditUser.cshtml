@@ -7,6 +7,7 @@
 
 
 <h4>Edit user data</h4>
+<p>@TempData["command"]</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -27,6 +28,7 @@
                 <input asp-for="Kcal" class="form-control" value="@TempData["Kcal"]"/>
                 <span asp-validation-for="Kcal" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

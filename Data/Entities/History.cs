@@ -12,8 +12,5 @@ namespace Data.Entities
         public int? Amount { get; set; }
         public DateTime? Date { get; set; }
 
-        public virtual Ingredients Ingredient { get; set; }
-        public virtual Products Product { get; set; }
-        public virtual Users User { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Services
             var args = new List<string>();
             args.Add(User.Username);
             //args.Add(User.Password); non required
-            var answer = db.Query("View_History_User", args);
+            var answer = db.Procedure("View_History_User", args);
             for (int i=0;i<answer.Count;i+=3)
             {
                 var unit = new History() {
@@ -37,5 +37,31 @@ namespace Services
             }
             return history;
         }
+
+        public bool Add(List<Models.FitModel> fit, UserModel user)
+        {
+            try
+            {
+                var args = new List<string>();
+                //var history = FitToHistory(fit);
+                foreach(var unit in fit)
+                {
+                    args = new List<string>();
+                    args.Add(User.Id.ToString());
+                    args.Add(unit.ProductID.Value.ToString());
+                    args.Add(unit.IngredientID.Value.ToString());
+                    args.Add(unit.Weight.ToString());
+
+                    var answer = db.Procedure("Add_History_User", args);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+        
     }
 }

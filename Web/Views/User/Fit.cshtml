@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Models.FitModel>
+
+<h4>FitModel</h4>
+<hr />
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ingredient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kcal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ingredient)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kcal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Products
+                </th>
+                <th>
+                    Weight
+                </th>
+                <th>
+                    Kcalories
+                </th>
+                <th>
+                    Price
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <td>
+                        @TempData["SumProducts"]
+                    </td>
+                    <td>
+                        @TempData["SumWeight"]
+                    </td>
+                    <td>
+                        @TempData["SumKcal"]
+                    </td>
+                    <td>
+                        @TempData["SumPrice"]
+                    </td>
+                   
+                </tr>
+            
+        </tbody>
+    </table>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Fit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <button class="btn-primary " onclick="location.href='@Url.Action("Fit", "User")';return false;">Something else</button>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Accept" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

@@ -9,15 +9,66 @@ using System.Data.SqlClient;
 using Models;
 using Services;
 using Microsoft.AspNetCore.Http;
+using System.Threading;
 
 namespace Web.Controllers
 {
     public class UserController : Controller
     {
+        static List<Models.FitModel> fit_list;
+        int IntFromBool(bool arg)
+        {
+            if (arg)
+                return 1;
+            else return 0;
+        }
+        bool BoolFromInt(int arg)
+        {
+            if (arg>0)
+                return true;
+            else return false;
+        }
         public void MessageBox(string message)
         {
             Response.WriteAsync("<script>alert('"+ message + "');</script>");
         }
+        private Models.UserModel UserFromSession()
+        {
+            try
+            {
+                var user = new UserModel()
+                {
+                    Id = HttpContext.Session.GetInt32("Id").Value,
+                    Username = HttpContext.Session.GetString("Username"),
+                    Password = HttpContext.Session.GetString("Password"),
+                    Kcal = HttpContext.Session.GetInt32("Kcal").Value,
+                    Lactose = BoolFromInt(HttpContext.Session.GetInt32("Lactose").Value),
+                    Gluten = BoolFromInt(HttpContext.Session.GetInt32("Gluten").Value),
+                    Vege = BoolFromInt(HttpContext.Session.GetInt32("Vege").Value)
+                };
+                return user;
+            }
+            catch (Exception)
+            {
+                Thread.Sleep(2000);
+                return UserFromSession();
+            }
+            
+        }
+        
+        private void SessionFromUser(UserModel user)
+        {
+            HttpContext.Session.SetString("Username", user.Username);
+            HttpContext.Session.SetString("Password", user.Password);
+            HttpContext.Session.SetInt32("Id", user.Id);
+            HttpContext.Session.SetInt32("Kcal", user.Kcal);
+            HttpContext.Session.SetInt32("Lactose", IntFromBool(user.Lactose));
+            HttpContext.Session.SetInt32("Gluten", IntFromBool(user.Gluten));    
+            HttpContext.Session.SetInt32("Vege", IntFromBool(user.Vege));
+            HttpContext.Session.SetInt32("signed", 1);
+        }
+
+
         public IActionResult Index()
         {
             TempData["Username"] = HttpContext.Session.GetString("Username");
@@ -39,11 +90,7 @@ namespace Web.Controllers
             LoginService service = new LoginService(user);
             if (service.SignIn())
             {
-                HttpContext.Session.SetString("Username", user.Username);
-                HttpContext.Session.SetString("Password", user.Password);
-                HttpContext.Session.SetInt32("Id", user.Id);
-                HttpContext.Session.SetInt32("Kcal", user.Kcal);
-                HttpContext.Session.SetInt32("signed", 1);
+                SessionFromUser(user);
 
                 return RedirectToAction("Index");
 
@@ -60,29 +107,36 @@ namespace Web.Controllers
 
         }
         [HttpGet]
-        public IActionResult EditUser()
+        public IActionResult EditUser(string result="Enter your data")
         {
             TempData["Username"] = HttpContext.Session.GetString("Username");
             TempData["Password"] = HttpContext.Session.GetString("Password");
             TempData["Kcal"] = HttpContext.Session.GetInt32("Kcal").ToString();
+            TempData["Lactose"] = BoolFromInt(HttpContext.Session.GetInt32("Lactose").Value);
+            TempData["Gluten"] = BoolFromInt(HttpContext.Session.GetInt32("Gluten").Value);
+            TempData["Vege"] = BoolFromInt(HttpContext.Session.GetInt32("Vege").Value);
+
+            TempData["command"] = result;
             return View();
         }
         [HttpPost]
         public IActionResult EditUser(UserModel user)
         {
-            HttpContext.Session.SetString("Username", user.Username);
-            HttpContext.Session.SetString("Password", user.Password);
-            HttpContext.Session.SetInt32("Kcal", user.Kcal);
-            
-            return RedirectToAction("Index", "User");
+            var service = new Services.RegisterService(UserFromSession());
+            var result = service.Update(user);
+            if (result == "succes")
+            {
+                SessionFromUser(user);
+
+                return RedirectToAction("Index", "User");
+            }
+
+
+            return EditUser(result);
         }
         public IActionResult History(List<History> history)
         {
-            var user = new UserModel()
-            {
-                Username = HttpContext.Session.GetString("Username"),
-                Password = HttpContext.Session.GetString("Password")
-            };
+            var user = UserFromSession();
             var service = new Services.HistoryService(user);
             history = service.UserHistory();
             return View(history);
@@ -105,6 +159,46 @@ namespace Web.Controllers
             else
                 return Register(result);
 
+        }
+        [HttpGet]
+        public IActionResult Fit()
+        {
+            var user = UserFromSession();
+            var fit = new List<FitModel>();
+            //TempData["user"] = user;
+
+            var service = new Services.FitService(user);
+            fit = service.Fit(user);
+            var opitimizer = new Optimizer();
+            fit = opitimizer.Rand5(fit);
+            fit_list = fit;
+
+            TempData["SumProducts"] = fit.Count;
+            
+            TempData["SumWeight"] = opitimizer.SumWeight(fit);
+            TempData["SumPrice"]= opitimizer.SumPrice(fit);
+            TempData["SumKcal"] = opitimizer.SumKcal(fit);
+
+            return View(fit);
+        }
+        [HttpPost]
+        public IActionResult Fit(List<FitModel> fit)
+        {
+            return RedirectToAction("FitAdd");
+        }
+        public IActionResult FitAdd()
+        {
+            //List<FitModel> fit
+            //TempData["user"] = user;
+
+            var user = UserFromSession();
+
+            var fit = fit_list;
+            var service = new Services.HistoryService(user);
+            if (service.Add(fit, user))
+                return RedirectToAction("Index");
+            else
+                return Fit();
         }
 
     }
