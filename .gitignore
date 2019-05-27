@@ -13,6 +13,9 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+#connection string
+Data/Resources.resx
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -338,3 +341,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+Data/Resources.resx
