@@ -9,19 +9,19 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" value="@TempData["Username"]" />
+                <input asp-for="Username" class="form-control" value="@Model.Username" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" value="@TempData["Password"]" />
+                <input asp-for="Password" type="password" class="form-control" value="@Model.Password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <h5>Preferences</h5>
             <hr />
             <div class="form-group">
                 <label asp-for="Kcal" class="control-label"></label>
-                <input asp-for="Kcal" class="form-control" value="@TempData["Kcal"]" />
+                <input asp-for="Kcal" class="form-control" value="@Model.Kcal" />
                 <span asp-validation-for="Kcal" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -36,7 +36,9 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Meat" /> @Html.DisplayNameFor(model => model.Meat)
+                    
+                        <input class="form-check-input" asp-for="Meat" /> @Html.DisplayNameFor(model => model.Meat)
+
                 </label>
             </div>
             <div class="form-group">

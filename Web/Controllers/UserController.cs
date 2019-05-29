@@ -148,15 +148,10 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult EditUser(string result="")
         {
-            TempData["Username"] = HttpContext.Session.GetString("Username");
-            TempData["Password"] = HttpContext.Session.GetString("Password");
-            TempData["Kcal"] = HttpContext.Session.GetInt32("Kcal").ToString();
-            TempData["Lactose"] = BoolFromInt(HttpContext.Session.GetInt32("Lactose").Value);
-            TempData["Gluten"] = BoolFromInt(HttpContext.Session.GetInt32("Gluten").Value);
-            TempData["Vege"] = BoolFromInt(HttpContext.Session.GetInt32("Vege").Value);
+            var user = UserFromSession();
 
             TempData["command"] = result;
-            return View();
+            return View(user);
         }
         [HttpPost]
         public IActionResult EditUser(UserModel user)
