@@ -1,6 +1,7 @@
 ﻿@model Models.UserModel
 
-<h4>User data</h4>
+<h5>Account data</h5>
+<p class="alert-danger">@TempData["command"]</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -8,14 +9,16 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control"value="@TempData["Username"]" />
+                <input asp-for="Username" class="form-control" value="@TempData["Username"]" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" value="@TempData["Password"]"/>
+                <input asp-for="Password" class="form-control" value="@TempData["Password"]" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+            <h5>Preferences</h5>
+            <hr />
             <div class="form-group">
                 <label asp-for="Kcal" class="control-label"></label>
                 <input asp-for="Kcal" class="form-control" value="@TempData["Kcal"]" />
@@ -33,7 +36,7 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Vege" /> @Html.DisplayNameFor(model => model.Vege)
+                    <input class="form-check-input" asp-for="Meat" /> @Html.DisplayNameFor(model => model.Meat)
                 </label>
             </div>
             <div class="form-group">

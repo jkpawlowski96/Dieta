@@ -76,7 +76,7 @@ namespace Services
                 args.Add(_newUser.Kcal.ToString());
                 args.Add(IntFromBool(_newUser.Lactose).ToString());
                 args.Add(IntFromBool(_newUser.Gluten).ToString());
-                args.Add(IntFromBool(_newUser.Vege).ToString());
+                args.Add(IntFromBool(_newUser.Meat).ToString());
 
                 answer = db.Procedure("User_Update", args);
 

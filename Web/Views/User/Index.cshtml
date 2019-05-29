@@ -1,15 +1,75 @@
-﻿
+﻿@model EatCanCant
 @{
     ViewData["Title"] = "Index";
 }
 
 
+    <div class="container">
+        <div class="card-deck mb-4 text-center">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Hello</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">@TempData["Username"]</h1>
+                    <h5>Plan @TempData["Kcal"] Kcals</h5>
 
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="location.href='@Url.Action("EditUser", "User")';return false;">Edit profile</button>
+                </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Shopping</h4>
+                </div>
+                <div class="card-body">
+                    <button style="margin-top:30px" type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="location.href='@Url.Action("Fit", "User")';return false;">Generate products</button>
+                </div>
+            </div>
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">History</h4>
+                    </div>
+                    <div class="card-body ">
+                        <button style="margin-top:30px" class="btn btn-lg btn-block btn-outline-primary" onclick="location.href='@Url.Action("History", "User")';return false;">View</button>
+                </div>
+            </div>
+        </div>
+        <hr />
 
-<div class="container">
-    @await Html.PartialAsync("./Panel.cshtml")
-</div>
+        <h5>You can eat</h5>
+        @foreach (var e in Model.can)
+        {
+            <h6 style="color:gray">@e</h6>
+        }
+        <hr />
 
+        <h5>but can't eat</h5>
+        @foreach (var e in Model.cant)
+        {
+            <h6 style="color:gray">@e</h6>
+        }
+    </div>
+
+<!--
 <div class="justify-content-center">
     <button class="btn-success btn-lg" onclick="location.href='@Url.Action("Fit", "User")';return false;">Generate products</button>
 </div>
+<hr />
+<h5>Daily demand @TempData["Kcal"] Kcals</h5>
+<hr />
+
+<h5>You can eat</h5>
+@foreach (var e in Model.can)
+{
+    <h6 style="color:gray">@e</h6>
+}
+<hr />
+
+<h5>but can't eat</h5>
+@foreach (var e in Model.cant)
+{
+    <h6 style="color:gray">@e</h6>
+}
+
+<hr />
+    -->

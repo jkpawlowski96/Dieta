@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Models.FitModel>
 
-<h4>FitModel</h4>
+<h4>Your cart</h4>
 <hr />
 <div>
     <a asp-action="Index">Back to List</a>
@@ -44,7 +44,7 @@
         }
     </tbody>
 </table>
-
+<hr />
     <table class="table">
         <thead>
             <tr>
@@ -83,14 +83,14 @@
             
         </tbody>
     </table>
-
+    <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Fit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <button class="btn-primary " onclick="location.href='@Url.Action("Fit", "User")';return false;">Something else</button>
+                <button class="btn btn-primary" onclick="location.href='@Url.Action("Fit", "User")';return false;">Something else</button>
             </div>
             <div class="form-group">
                 <input type="submit" value="Accept" class="btn btn-success" />

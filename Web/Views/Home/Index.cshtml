@@ -2,19 +2,39 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
-    <div class="col-3">
 
+<div class="container w-50">
+    <div class="card-deck mb-4 text-center">
+        <div class="card mb-4 shadow-sm">
+            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='@Url.Action("Login", "User")'">
+                Sign in
+            </button>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='@Url.Action("Register", "User")'">
+                Registration
+            </button>
+        </div>
     </div>
-    <div class="col-6 text-center">
-        <button type="button" class="btn btn-primary btn-lg" onclick="location.href='@Url.Action("Login", "User")'">
-            Sign in
-        </button>
-        <button type="button" class="btn btn-primary btn-lg" onclick="location.href='@Url.Action("Register", "User")'">
-            Registration
-        </button>
-    </div>
-    <div class="col-3">
-
-    </div>
+    <img class="center" src="https://cdn0.iconfinder.com/data/icons/shopping-cart-26/1000/Shopping-Basket-03-512.png"/>
+    <h1  class="center" style="text-align:center; font-family:'Apple Chancery'; font-style:italic; color:#00d372;">Let us drive your cart</h1>
 </div>
+
+<!--
+                <div class="row">
+                    <div class="col-3">
+
+                    </div>
+                    <div class="col-6 text-center">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="location.href='@Url.Action("Login", "User")'">
+                            Sign in
+                        </button>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="location.href='@Url.Action("Register", "User")'">
+                            Registration
+                        </button>
+                    </div>
+                    <div class="col-3">
+
+                    </div>
+                </div>
+    -->

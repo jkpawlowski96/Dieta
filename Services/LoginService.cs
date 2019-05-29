@@ -33,7 +33,7 @@ namespace Services
                     User.Kcal = int.Parse(answer[1]);
                     User.Lactose = bool.Parse(answer[2]);
                     User.Gluten = bool.Parse(answer[3]);
-                    User.Vege = bool.Parse(answer[4]);
+                    User.Meat = bool.Parse(answer[4]);
                     return true;
                 }
             }

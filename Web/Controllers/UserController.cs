@@ -46,7 +46,7 @@ namespace Web.Controllers
                     Kcal = HttpContext.Session.GetInt32("Kcal").Value,
                     Lactose = BoolFromInt(HttpContext.Session.GetInt32("Lactose").Value),
                     Gluten = BoolFromInt(HttpContext.Session.GetInt32("Gluten").Value),
-                    Vege = BoolFromInt(HttpContext.Session.GetInt32("Vege").Value)
+                    Meat = BoolFromInt(HttpContext.Session.GetInt32("Vege").Value)
                 };
                 return user;
             }
@@ -66,16 +66,53 @@ namespace Web.Controllers
             HttpContext.Session.SetInt32("Kcal", user.Kcal);
             HttpContext.Session.SetInt32("Lactose", IntFromBool(user.Lactose));
             HttpContext.Session.SetInt32("Gluten", IntFromBool(user.Gluten));    
-            HttpContext.Session.SetInt32("Vege", IntFromBool(user.Vege));
+            HttpContext.Session.SetInt32("Vege", IntFromBool(user.Meat));
             HttpContext.Session.SetInt32("signed", 1);
         }
 
 
         public IActionResult Index()
         {
-            TempData["Username"] = HttpContext.Session.GetString("Username");
-            TempData["Kcal"] = HttpContext.Session.GetInt32("Kcal").ToString();
-            return View();
+            var user = UserFromSession();
+            TempData["Username"] = user.Username;
+            TempData["Kcal"] = user.Kcal;
+
+            /*
+            TempData["CanEat"] = "Vegies Fruits ";
+            TempData["CantEat"] = "";
+
+            if (user.Meat)
+                TempData["CanEat"] += "Meat ";
+            else
+                TempData["CantEat"] += "Meat ";
+            if (user.Lactose)
+                TempData["CanEat"] += "Lactose ";
+            else
+                TempData["CantEat"] += "Lactose ";
+            if (user.Gluten)
+                TempData["CanEat"] += "Gluten ";
+            else
+                TempData["CantEat"] += "Gluten ";
+                */
+
+            var eat = new EatCanCant();
+            eat.can.Add("Vegies");
+            eat.can.Add("Fruits");
+
+            if (user.Meat)
+                eat.can.Add("Meat");
+            else
+                eat.cant.Add("Meat");
+            if (user.Lactose)
+                eat.can.Add("Lactose");
+            else
+                eat.cant.Add("Lactose");
+            if (user.Gluten)
+                eat.can.Add("Gluten");
+            else
+                eat.cant.Add("Gluten");
+
+            return View(eat);
         }
         [HttpGet]
         public IActionResult Login()
@@ -109,7 +146,7 @@ namespace Web.Controllers
 
         }
         [HttpGet]
-        public IActionResult EditUser(string result="Enter your data")
+        public IActionResult EditUser(string result="")
         {
             TempData["Username"] = HttpContext.Session.GetString("Username");
             TempData["Password"] = HttpContext.Session.GetString("Password");
@@ -124,6 +161,10 @@ namespace Web.Controllers
         [HttpPost]
         public IActionResult EditUser(UserModel user)
         {
+            if (user.Username == null || user.Password == null)
+                return EditUser("please fill all data");
+            if (user.Kcal <= 0)
+                return EditUser("You have to eat something :)");
             var service = new Services.RegisterService(UserFromSession());
             var result = service.Update(user);
             if (result == "succes")
@@ -144,7 +185,7 @@ namespace Web.Controllers
             return View(history);
         }
         [HttpGet]
-        public IActionResult Register(string result="Fill data")
+        public IActionResult Register(string result="")
         {
             TempData["command"] = result;
             return View();
@@ -152,6 +193,10 @@ namespace Web.Controllers
         [HttpPost]
         public IActionResult Register(UserModel user)
         {
+            if (user.Username == null || user.Password == null)
+                return EditUser("please fill all data");
+            if (user.Kcal <= 0)
+                return EditUser("You have to eat something :)");
             var service = new Services.RegisterService(user);
             var result = service.Register();
 

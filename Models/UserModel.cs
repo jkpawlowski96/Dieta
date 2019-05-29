@@ -22,6 +22,6 @@ namespace Models
         /// <summary>
         /// Can eat a Meat
         /// </summary>
-        public bool Vege { get; set; }
+        public bool Meat { get; set; }
     }
 }

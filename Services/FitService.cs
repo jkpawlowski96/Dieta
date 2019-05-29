@@ -48,7 +48,7 @@ namespace Services
             var args = new List<string>();
             args.Add(IntFromBool(user.Lactose).ToString());
             args.Add(IntFromBool(user.Gluten).ToString());
-            args.Add(IntFromBool(user.Vege).ToString());
+            args.Add(IntFromBool(user.Meat).ToString());
 
             var answer = db.Procedure("ProductsFit", args);
             for (int i = 0; i < answer.Count; i += 6)
